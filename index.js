@@ -1,14 +1,11 @@
 const express = require("express")
-const app = express()
 const consign = require("consign")
-const PORT = 3000
-
-app.set("json spaces", 4)
+const app = express()
 
 consign()
-  .include("routes")
-  .into(app)
-
-
-
-app.listen(PORT, () => console.log(`NTask API - porta ${PORT}`))
+  .include("libs/config.js")
+  .then("db.js")
+  .then("libs/middlewares.js")
+  .then("routes")
+  .then("libs/boot.js")
+  .into(app);
